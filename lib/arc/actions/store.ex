@@ -40,7 +40,7 @@ defmodule Arc.Actions.Store do
 
   defp handle_responses(responses, filename) do
     errors = Enum.filter(responses, fn(resp) -> elem(resp, 0) == :error end) |> Enum.map(fn(err) -> elem(err, 1) end)
-    if Enum.empty?(errors), do: {:ok, filename}, else: {:error, errors}
+    if Enum.empty?(errors), do: Enum.at(responses, 0), else: {:error, errors}
   end
 
   defp version_timeout do
